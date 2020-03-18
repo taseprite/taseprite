@@ -1,6 +1,26 @@
 local sprite
 local xml2lua
 
+function loadTags()
+    local tags = {}
+
+    for i, t in ipairs(sprite.tags) do
+        table.insert(
+            tags,
+            {
+                from = t.fromFrame.frameNumber,
+                to = t.toFrame.frameNumber,
+                name = t.name,
+                _attr = {
+                    id = i
+                }
+            }
+        )
+    end
+
+    return tags
+end
+
 function loadCels()
     local cels = {}
 
