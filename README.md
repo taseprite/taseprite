@@ -34,3 +34,8 @@
     </cels>
 </tase>
 ```
+
+## Additional Credits
+
+This project utilises functionality of the `xml2lua` package, published under
+the MIT-License (see `xml2lua/LICENSE`)
