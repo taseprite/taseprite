@@ -52,6 +52,9 @@ function init()
     local tase = {
         cels = {
             {cel = loadCels()}
+        },
+        tags = {
+            {tag = loadTags()}
         }
     }
 
