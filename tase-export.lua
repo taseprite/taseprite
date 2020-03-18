@@ -58,7 +58,9 @@ function init()
         }
     }
 
-    local file = io.open('test.xml', 'w')
+    local fullPath = app.fs.filePathAndTitle(sprite.filename) .. '.xml'
+
+    local file = io.open(fullPath, 'w')
 
     file:write(xml2lua.toXml(tase, 'tase'))
 end
