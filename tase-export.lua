@@ -8,11 +8,11 @@ function loadTags()
         table.insert(
             tags,
             {
-                from = t.fromFrame.frameNumber,
-                to = t.toFrame.frameNumber,
-                name = t.name,
                 _attr = {
-                    id = i
+                    id = i,
+                    from = t.fromFrame.frameNumber,
+                    to = t.toFrame.frameNumber,
+                    name = t.name
                 }
             }
         )
