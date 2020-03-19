@@ -25,30 +25,32 @@ function loadLayers(parent, offset, parentId)
     parent = parent or sprite
     offset = offset or 0
 
-    for i, l in ipairs(parent.layers) do
+    for i, layer in ipairs(parent.layers) do
         local id = i + offset
 
-        local layer = {
+        local layerTable = {
             _attr = {
                 id = id,
-                name = l.name,
-                stackIndex = l.stackIndex
+                name = layer.name,
+                stackIndex = layer.stackIndex
             }
         }
 
         if parentId then
-            layer._attr.parent = parentId
+            layerTable._attr.parent = parentId
         end
 
-        if l.isGroup then
-            layer._attr.isGroup = 'true'
+        if layer.isGroup then
+            layerTable._attr.isGroup = 'true'
 
-            for i, child in ipairs(loadLayers(l, offset + #parent.layers, id)) do
+            local children = loadLayers(layer, offset + #parent.layers, id)
+
+            for i, child in ipairs(children) do
                 table.insert(layers, child)
             end
         end
 
-        table.insert(layers, layer)
+        table.insert(layers, layerTable)
     end
 
     return layers
