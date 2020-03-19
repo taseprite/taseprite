@@ -73,6 +73,9 @@ function init()
         },
         tags = {
             {tag = loadTags()}
+        },
+        frames = {
+            {frame = loadFrames()}
         }
     }
 
