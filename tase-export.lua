@@ -1,6 +1,26 @@
 local sprite
 local xml2lua
 
+function loadTags()
+    local tags = {}
+
+    for i, t in ipairs(sprite.tags) do
+        table.insert(
+            tags,
+            {
+                _attr = {
+                    id = i,
+                    from = t.fromFrame.frameNumber,
+                    to = t.toFrame.frameNumber,
+                    name = t.name
+                }
+            }
+        )
+    end
+
+    return tags
+end
+
 function loadCels()
     local cels = {}
 
@@ -32,10 +52,15 @@ function init()
     local tase = {
         cels = {
             {cel = loadCels()}
+        },
+        tags = {
+            {tag = loadTags()}
         }
     }
 
-    local file = io.open('test.xml', 'w')
+    local fullPath = app.fs.filePathAndTitle(sprite.filename) .. '.xml'
+
+    local file = io.open(fullPath, 'w')
 
     file:write(xml2lua.toXml(tase, 'tase'))
 end
