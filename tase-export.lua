@@ -1,6 +1,24 @@
 local sprite
 local xml2lua
 
+function loadFrames()
+    local frames = {}
+
+    for i, f in ipairs(sprite.frames) do
+        table.insert(
+            frames,
+            {
+                _attr = {
+                    id = f.frameNumber,
+                    duration = f.duration
+                }
+            }
+        )
+    end
+
+    return frames
+end
+
 function loadTags()
     local tags = {}
 
