@@ -110,6 +110,9 @@ function init()
         },
         frames = {
             {frame = loadFrames()}
+        },
+        layers = {
+            {layer = loadLayers()}
         }
     }
 
