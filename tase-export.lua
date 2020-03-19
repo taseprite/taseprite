@@ -21,10 +21,11 @@ end
 
 function loadLayers(parent, offset, parentId)
     local layers = {}
-    local p = parent or sprite
-    local offset = offset or 0
 
-    for i, l in ipairs(p.layers) do
+    parent = parent or sprite
+    offset = offset or 0
+
+    for i, l in ipairs(parent.layers) do
         local id = i + offset
 
         local layer = {
@@ -42,7 +43,7 @@ function loadLayers(parent, offset, parentId)
         if l.isGroup then
             layer._attr.isGroup = 'true'
 
-            for i, child in ipairs(loadLayers(l, offset + #p.layers, id)) do
+            for i, child in ipairs(loadLayers(l, offset + #parent.layers, id)) do
                 table.insert(layers, child)
             end
         end
