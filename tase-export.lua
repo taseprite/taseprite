@@ -1,7 +1,7 @@
 local sprite
 local xml2lua
 
-function loadFrames()
+function dumpFrames()
     local frames = {}
 
     for i, f in ipairs(sprite.frames) do
@@ -19,7 +19,7 @@ function loadFrames()
     return frames
 end
 
-function loadLayers(parent, offset, parentId)
+function dumpLayers(parent, offset, parentId)
     local layers = {}
 
     parent = parent or sprite
@@ -43,7 +43,7 @@ function loadLayers(parent, offset, parentId)
         if layer.isGroup then
             layerTable._attr.isGroup = 'true'
 
-            local children = loadLayers(layer, offset + #parent.layers, id)
+            local children = dumpLayers(layer, offset + #parent.layers, id)
 
             for i, child in ipairs(children) do
                 table.insert(layers, child)
@@ -56,7 +56,7 @@ function loadLayers(parent, offset, parentId)
     return layers
 end
 
-function loadTags()
+function dumpTags()
     local tags = {}
 
     for i, t in ipairs(sprite.tags) do
@@ -76,7 +76,7 @@ function loadTags()
     return tags
 end
 
-function loadCels()
+function dumpCels()
     local cels = {}
 
     for i, c in ipairs(sprite.cels) do
@@ -106,16 +106,16 @@ function init()
 
     local tase = {
         cels = {
-            {cel = loadCels()}
+            {cel = dumpCels()}
         },
         tags = {
-            {tag = loadTags()}
+            {tag = dumpTags()}
         },
         frames = {
-            {frame = loadFrames()}
+            {frame = dumpFrames()}
         },
         layers = {
-            {layer = loadLayers()}
+            {layer = dumpLayers()}
         }
     }
 
