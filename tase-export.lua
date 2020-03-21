@@ -1,7 +1,7 @@
 local sprite
 local xml2lua
 
-function loadFrames()
+function dumpFrames()
     local frames = {}
 
     for i, f in ipairs(sprite.frames) do
@@ -112,7 +112,7 @@ function init()
             {tag = dumpTags()}
         },
         frames = {
-            {frame = loadFrames()}
+            {frame = dumpFrames()}
         },
         layers = {
             {layer = dumpLayers()}
