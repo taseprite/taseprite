@@ -56,7 +56,7 @@ function loadLayers(parent, offset, parentId)
     return layers
 end
 
-function loadTags()
+function dumpTags()
     local tags = {}
 
     for i, t in ipairs(sprite.tags) do
@@ -109,7 +109,7 @@ function init()
             {cel = dumpCels()}
         },
         tags = {
-            {tag = loadTags()}
+            {tag = dumpTags()}
         },
         frames = {
             {frame = loadFrames()}
