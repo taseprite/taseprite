@@ -19,6 +19,43 @@ function loadFrames()
     return frames
 end
 
+function loadLayers(parent, offset, parentId)
+    local layers = {}
+
+    parent = parent or sprite
+    offset = offset or 0
+
+    for i, layer in ipairs(parent.layers) do
+        local id = i + offset
+
+        local layerTable = {
+            _attr = {
+                id = id,
+                name = layer.name,
+                stackIndex = layer.stackIndex
+            }
+        }
+
+        if parentId then
+            layerTable._attr.parent = parentId
+        end
+
+        if layer.isGroup then
+            layerTable._attr.isGroup = 'true'
+
+            local children = loadLayers(layer, offset + #parent.layers, id)
+
+            for i, child in ipairs(children) do
+                table.insert(layers, child)
+            end
+        end
+
+        table.insert(layers, layerTable)
+    end
+
+    return layers
+end
+
 function loadTags()
     local tags = {}
 
@@ -76,6 +113,9 @@ function init()
         },
         frames = {
             {frame = loadFrames()}
+        },
+        layers = {
+            {layer = loadLayers()}
         }
     }
 

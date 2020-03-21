@@ -2,6 +2,9 @@
 
 ## XML Structure
 
+Please note that this structure is currently subject of change as we further and
+further dive into the Aseprite scripting API.
+
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
 <tase version="1.0.0" aseprite-version="1.2.17" width="32" height="32" filename="test.ase">
