@@ -19,7 +19,7 @@ function loadFrames()
     return frames
 end
 
-function loadLayers(parent, offset, parentId)
+function dumpLayers(parent, offset, parentId)
     local layers = {}
 
     parent = parent or sprite
@@ -43,7 +43,7 @@ function loadLayers(parent, offset, parentId)
         if layer.isGroup then
             layerTable._attr.isGroup = 'true'
 
-            local children = loadLayers(layer, offset + #parent.layers, id)
+            local children = dumpLayers(layer, offset + #parent.layers, id)
 
             for i, child in ipairs(children) do
                 table.insert(layers, child)
@@ -115,7 +115,7 @@ function init()
             {frame = loadFrames()}
         },
         layers = {
-            {layer = loadLayers()}
+            {layer = dumpLayers()}
         }
     }
 
