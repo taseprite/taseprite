@@ -76,7 +76,7 @@ function loadTags()
     return tags
 end
 
-function loadCels()
+function dumpCels()
     local cels = {}
 
     for i, c in ipairs(sprite.cels) do
@@ -106,7 +106,7 @@ function init()
 
     local tase = {
         cels = {
-            {cel = loadCels()}
+            {cel = dumpCels()}
         },
         tags = {
             {tag = loadTags()}
