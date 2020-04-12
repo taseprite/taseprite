@@ -21,6 +21,7 @@ end
 
 function dumpLayers(parent, offset, parentId)
     local layers = {}
+    local cels = {}
 
     parent = parent or sprite
     offset = offset or 0
@@ -40,20 +41,32 @@ function dumpLayers(parent, offset, parentId)
             layerTable._attr.parent = parentId
         end
 
+        local c
+
         if layer.isGroup then
             layerTable._attr.isGroup = 'true'
 
-            local children = dumpLayers(layer, offset + #parent.layers, id)
+            local children, childCels = dumpLayers(layer, offset + #parent.layers, id)
 
             for i, child in ipairs(children) do
                 table.insert(layers, child)
             end
+
+            c = childCels
+        else
+            if #layer.cels then
+                c = dumpCels(layer, id)
+            end
+        end
+
+        for i, cel in ipairs(c) do
+            table.insert(cels, cel)
         end
 
         table.insert(layers, layerTable)
     end
 
-    return layers
+    return layers, cels
 end
 
 function dumpTags()
@@ -76,15 +89,21 @@ function dumpTags()
     return tags
 end
 
-function dumpCels()
+function dumpCels(layer, layerId)
     local cels = {}
 
-    for i, c in ipairs(sprite.cels) do
+    if layer == nil then
+        return {}
+    end
+
+    layerId = layerId or 0
+
+    for i, c in ipairs(layer.cels) do
         table.insert(
             cels,
             {
                 _attr = {
-                    layer = c.layer.stackIndex,
+                    layer = layerId,
                     frame = c.frameNumber,
                     opacity = c.opacity
                 }
@@ -104,10 +123,9 @@ function init()
 
     xml2lua = dofile('xml2lua/xml2lua.lua')
 
+    local l, c = dumpLayers()
+
     local tase = {
-        cels = {
-            {cel = dumpCels()}
-        },
         tags = {
             {tag = dumpTags()}
         },
@@ -115,7 +133,10 @@ function init()
             {frame = dumpFrames()}
         },
         layers = {
-            {layer = dumpLayers()}
+            {layer = l}
+        },
+        cels = {
+            {cel = c}
         }
     }
 
