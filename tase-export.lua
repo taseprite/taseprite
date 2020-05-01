@@ -154,8 +154,12 @@ function init()
     xml2lua = dofile('xml2lua/xml2lua.lua')
 
     local l, c = dumpLayers()
+    local colors, p = dumpPalette()
 
     local tase = {
+        palette = {
+            {color = p}
+        },
         tags = {
             {tag = dumpTags()}
         },
