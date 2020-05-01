@@ -114,6 +114,36 @@ function dumpCels(layer, layerId)
     return cels
 end
 
+function dumpPalette()
+    local colors = {}
+    local palette = {}
+
+    local p = sprite.palettes[1]
+
+    local nextId = 0
+
+    local cel = sprite.cels[1]
+    local img = cel.image
+
+    for i = 0, #p - 1 do
+        local pixel = p:getColor(i).rgbaPixel
+
+        colors[pixel] = i
+
+        table.insert(
+            palette,
+            {
+                _attr = {
+                    id = i,
+                    value = pixel
+                }
+            }
+        )
+    end
+
+    return colors, palette
+end
+
 function init()
     sprite = app.activeSprite
 
@@ -124,8 +154,12 @@ function init()
     xml2lua = dofile('xml2lua/xml2lua.lua')
 
     local l, c = dumpLayers()
+    local colors, p = dumpPalette()
 
     local tase = {
+        palette = {
+            {color = p}
+        },
         tags = {
             {tag = dumpTags()}
         },
