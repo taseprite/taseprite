@@ -99,10 +99,24 @@ function dumpCels(layer, layerId)
     layerId = layerId or 0
 
     for i, c in ipairs(layer.cels) do
+        local image = c.image
+
+        local id = layerId .. c.frameNumber
+
+        local img = {
+            _attr = {
+                width = image.width,
+                height = image.height,
+                colorMode = image.colorMode
+            }
+        }
+
         table.insert(
             cels,
             {
+                image = {img},
                 _attr = {
+                    id = id,
                     layer = layerId,
                     frame = c.frameNumber,
                     opacity = c.opacity
